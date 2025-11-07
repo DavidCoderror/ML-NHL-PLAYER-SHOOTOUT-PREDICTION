@@ -12,6 +12,7 @@ from sklearn.model_selection import train_test_split  # Split nos donnes
 from sklearn.ensemble import RandomForestRegressor  # Notre Model de choix
 from sklearn.metrics import mean_absolute_error, r2_score  # Evaluation
 from sklearn.preprocessing import StandardScaler  # Standard
+from sklearn.preprocessing import MinMaxScaler #Stress
 
 # Cherchez nos donnes
 donnes = pd.read_excel("C:\\Users\\david\\OneDrive\Desktop\\NHL_DONNES.xlsx")
@@ -31,15 +32,18 @@ donnes['PPG_per_Gp'] = donnes['PPG'] / donnes['GP']
 donnes['PPA_per_Gp'] = donnes['PPA'] / donnes['GP']
 
 # Experiemntation
-donnes['Accuracy'] = donnes['S'] * donnes['G_per_Gp'] * donnes['S%']
-donnes['Stress'] = donnes['GWG_per_Gp'] * donnes['PPG_per_Gp'] * donnes['PPA_per_Gp']
+donnes['Accuracy'] = donnes['S_per_Gp'] * donnes['G_per_Gp'] * donnes['S%']
+donnes['Stress_Management'] = donnes['GWG_per_Gp'] * donnes['PPG_per_Gp'] * donnes['PPA_per_Gp']
+donnes['Consistency'] = donnes['G_per_Gp'] / donnes['PTS_per_Gp']
 donnes['SOA_Gp'] = donnes['SOA'] / donnes['GP']
 
-donnes['Accuracy_Sous Stress'] = donnes['Accuracy'] * donnes['Stress'].replace(0, 0.001)
+scaler_stress = MinMaxScaler()
+
+donnes['Accuracy_Sous Stress'] = donnes['Accuracy'] * donnes['Stress_Management'].replace(0, 0.001)
 
 
 donnes = donnes.drop(columns=['RK', 'Name', 'GP', 'G', 'A', 'S', 'PPG', 'PPA','PTS', 'FL', 'FW', 'PIM', 'FO%','TOI/G', 'SHFT']) # General
-donnes = donnes.drop(columns=['SOA', 'SOG', 'SO%', 'S%', 'Accuracy'])
+donnes = donnes.drop(columns=['SOA', 'SOG', 'SO%'])
 
 
 x = donnes.drop(columns=['SO%', 'Accuracy_Sous Stress'], errors='ignore')  # Optional safety in case 'SO%' still exists
