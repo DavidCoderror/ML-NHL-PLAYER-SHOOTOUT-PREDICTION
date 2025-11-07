@@ -31,19 +31,20 @@ donnes['PPG_per_Gp'] = donnes['PPG'] / donnes['GP']
 donnes['PPA_per_Gp'] = donnes['PPA'] / donnes['GP']
 
 # Experiemntation
-donnes['Accuracy'] = donnes['S%'] * donnes['S'] * donnes['A_per_Gp']
+donnes['Accuracy'] = donnes['S'] * donnes['G_per_Gp'] * donnes['S%']
 donnes['Stress'] = donnes['GWG_per_Gp'] * donnes['PPG_per_Gp'] * donnes['PPA_per_Gp']
 donnes['SOA_Gp'] = donnes['SOA'] / donnes['GP']
 
 donnes['Accuracy_Sous Stress'] = donnes['Accuracy'] * donnes['Stress'].replace(0, 0.001)
 
 
-donnes = donnes.drop(columns=['RK', 'Name', 'GP', 'G', 'A', 'S', 'PPG', 'PPA', 'FL', 'FW', 'PIM', 'FO%','TOI/G', 'SHFT']) # General
+donnes = donnes.drop(columns=['RK', 'Name', 'GP', 'G', 'A', 'S', 'PPG', 'PPA','PTS', 'FL', 'FW', 'PIM', 'FO%','TOI/G', 'SHFT']) # General
 donnes = donnes.drop(columns=['SOA', 'SOG', 'SO%', 'S%', 'Accuracy'])
 
 
 x = donnes.drop(columns=['SO%', 'Accuracy_Sous Stress'], errors='ignore')  # Optional safety in case 'SO%' still exists
 y = donnes['Accuracy_Sous Stress']
+y = y / y.max() * 100  # scale so the max = 100%
 
 # Split les donnes
 X_train, X_temporaire, Y_train, Y_temporaire = train_test_split(x, y, test_size=0.2, random_state=42)  # Training Set
