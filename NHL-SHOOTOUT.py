@@ -1,3 +1,9 @@
+""""
+Project AI: PREDICTION POURCENTAGE SHOOTOUTS
+Createur: DAVID CODERRE
+Description: Etre Capable de predire en forme de pourcentage, leur chance quand il sont dans Shootout
+"""
+
 #imports
 import pandas as pd
 from sklearn.model_selection import train_test_split, cross_val_score
@@ -54,7 +60,7 @@ donnes = donnes.drop(
 
 # Features & target
 x = donnes[[
-    'G_per_Gp', 'A_per_Gp', 'S_per_Gp',  # Normal  
+    'G_per_Gp', 'A_per_Gp', 'S_per_Gp',  # Normal
     'Consistency', 'FinishingRate',  # Experiemntale
     'SO_Experience', 'SO_Efficiency'  # Shootouts
 
