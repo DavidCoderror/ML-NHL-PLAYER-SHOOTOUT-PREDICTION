@@ -13,4 +13,4 @@ So I decided to engineer some features togheter, slwoly but surely it was lookin
 I have been trying other types of Models to see how effective they are. Main focus still being on RandomForest seems to be the best Model at hand. 
 Might try more models.
 
-c-DC
+-DC
