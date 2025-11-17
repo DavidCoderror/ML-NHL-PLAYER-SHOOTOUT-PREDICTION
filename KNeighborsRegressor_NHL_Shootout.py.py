@@ -51,7 +51,7 @@ donnes['ClutchScore'] = (  # The idea of being able to score when it matters
         (donnes['ClutchIndex'] * 0.4) +  # Game-winners are pure pressure goals
         (donnes['PPG'] * 0.2) +  # Power-play performance
         (donnes['PPA'] * 0.1) +  # Power-play assists
-        (donnes['StressManagement'] * 0.4)
+        (donnes['StressManagement'] * 0.4) # Stress Management
 )
 donnes['ClutchScore'] = donnes['ClutchScore'] / donnes['ClutchScore'].max() * 100
 
@@ -64,7 +64,7 @@ donnes = donnes.drop(
 x = donnes[[
     'G_per_Gp', 'A_per_Gp',  # Normal
     'Consistency', 'FinishingRate',  # Experiemntale
-    'SO_Experience', 'SO_Efficiency'  # Shootouts
+    'SO_Experience', 'SO_Efficiency'  # Stress
 
 ]]
 
@@ -79,8 +79,7 @@ X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
 
 # Model
-model = KNeighborsRegressor(n_neighbors=5)
-
+model = KNeighborsRegressor(n_neighbors=8)
 model.fit(X_train, y_train)
 
 # Evaluate
