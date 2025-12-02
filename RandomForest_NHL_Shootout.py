@@ -53,7 +53,7 @@ donnes['StressManagement'] = (                             # L'idee de pression
 donnes['StressManagement'] = donnes['StressManagement'] / donnes['StressManagement'].max() * 100  # Le faire entre 0-100
 
 # ------------------------------------------------------------------------------------
-# Experimentale 
+# Experimentale
 # ------------------------------------------------------------------------------------
 
 donnes['ClutchIndex'] = donnes['GWG'] / donnes['G'].replace(0, 0.001)  # Nombre de buts gagnante diviser par but normale
@@ -142,11 +142,10 @@ plt.scatter(results['Actual SO%'], results['Predicted SO%'], alpha=0.6)
 # Ligne de tendance
 coef = np.polyfit(results['Actual SO%'], results['Predicted SO%'], 1)
 trend = np.poly1d(coef)
-plt.plot(results['Actual SO%'], trend(results['Actual SO%']), linestyle='--')
+plt.plot(results['Actual SO%'], trend(results['Actual SO%']))
 
 plt.title("Réel vs Prédit (Shootout %)")
 plt.xlabel("SO% réel")
 plt.ylabel("SO% prédit")
 plt.grid(alpha=0.3)
 plt.show()
-
